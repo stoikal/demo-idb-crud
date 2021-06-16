@@ -60,7 +60,7 @@ const ProductListIdb = {
     const list = [];
     let cursor = await tx.store.openCursor();
 
-    if (offset) {
+    if (cursor && offset) {
       cursor = await cursor.advance(offset);
     }
 
