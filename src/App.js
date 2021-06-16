@@ -57,7 +57,7 @@ const App = () => {
     const { name } = product;
     await ProductList.delete(name);
 
-    if (list.length < 2) {
+    if (list.length < 2 && page > 1) {
       setPage(page - 1); // page change is being listened by useEffect
     } else {
       updatePage();
