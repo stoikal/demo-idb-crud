@@ -5,6 +5,7 @@ import noop from '../utils/noop';
 
 const ProductForm = ({ initialValue, onSubmit }) => {
   const [value, setValue] = useState(initialValue);
+  const [imageFile, setImageFile] = useState(null);
   const [fileError, setFileError] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -16,21 +17,26 @@ const ProductForm = ({ initialValue, onSubmit }) => {
 
   const handleFileChange = (event) => {
     const fileList = event.target.files;
-    for (let i = 0; i < fileList.length; i += 1) {
-      const file = fileList[i];
+    const file = fileList[0];
 
-      if (file.size > 20_000) {
-        fileInputRef.current.value = null;
-        setFileError('Ukuran berkas melebihi 100kb');
-      } else {
+    if (file.size > 20_000) {
+      setFileError('Ukuran berkas melebihi 100kb');
+      setImageFile(null);
+    } else {
+      const reader = new FileReader();
+      reader.addEventListener('load', (e) => {
+        const base64Str = e.target.result;
         setFileError(null);
-      }
+        setImageFile(base64Str);
+      });
+      reader.readAsDataURL(file);
     }
   };
 
   const handleSubmit = (event) => {
     const submitValue = {
       ...event.value,
+      image: imageFile,
     };
     onSubmit(submitValue);
   };

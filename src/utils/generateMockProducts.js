@@ -25,7 +25,7 @@ export default function generateProducts(amount, startFrom = 1) {
       name: `Produk ${randomString(5)}`,
       costPrice: cost,
       sellingPrice: cost + cost * 0.1,
-      stock: randomIntFromInterval(10, 100),
+      stock: randomIntFromInterval(0, 100),
     });
   }
 

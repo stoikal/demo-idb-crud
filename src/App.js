@@ -1,6 +1,6 @@
 import 'regenerator-runtime';
 import React, { useState, useEffect } from 'react';
-import { Grommet, Button, Main, Box } from 'grommet';
+import { Grommet, Button, Main, Box, Pagination } from 'grommet';
 import ProductList from './data/product-list-idb';
 import ProductTable from './components/ProductTable';
 import ProductFormModal from './components/ProductFormModal';
@@ -65,6 +65,9 @@ const App = () => {
           onSubmitProduct={handleSubmit}
           onDeleteProduct={handleDelete}
         />
+        <Box align="center" margin="medium">
+          <Pagination numberItems={237} />
+        </Box>
       </Main>
     </Grommet>
   );

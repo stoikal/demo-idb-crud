@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DataTable, Box, Button } from 'grommet';
+import { DataTable, Box, Button, Image } from 'grommet';
 import { FormEdit, FormTrash } from 'grommet-icons';
 import ProductFormModal from './ProductFormModal';
 import Confirm from './Confirm';
@@ -39,12 +39,26 @@ const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
     );
   };
 
+  const renderImage = ({ image }) => {
+    if (!image) return null;
+
+    return (
+      <Box height="xsmall" width="xsmall">
+        <Image
+          fit="cover"
+          src={image}
+        />
+      </Box>
+    );
+  };
+
   return (
     <DataTable
       primaryKey="name"
       columns={[
         {
           header: 'Gambar',
+          render: renderImage,
         },
         {
           property: 'name',

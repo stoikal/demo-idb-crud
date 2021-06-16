@@ -42,7 +42,6 @@ const ProductListIdb = {
   },
 
   async putMany(products) {
-    console.log(products);
     const tx = (await dbPromise).transaction(OBJECT_STORE_NAME, 'readwrite');
     await Promise.all([
       ...products.map((product) => {
