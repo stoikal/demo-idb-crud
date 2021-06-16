@@ -11,9 +11,12 @@
         "devDependencies": true, 
         "optionalDependencies": false, 
         "peerDependencies": false
-        }
+      }
     ],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "object-curly-newline": ["error", {
+      "ObjectPattern": { "multiline": true, "minProperties": 6 }
+  }]
   }
 }
