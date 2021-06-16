@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grommet } from 'grommet';
 import ProductTable from './components/ProductTable';
 
 const list = [];
@@ -22,16 +23,26 @@ function generateList(amount) {
 
 generateList(10);
 
+const theme = {
+  global: {
+    font: {
+      family: 'sans-serif',
+      size: '18px',
+      height: '20px',
+    },
+  },
+};
+
 const App = () => {
   const title = 'hello world';
 
   return (
-    <>
+    <Grommet theme={theme}>
       <div>{title}</div>
       <ProductTable
         list={list}
       />
-    </>
+    </Grommet>
   );
 };
 
