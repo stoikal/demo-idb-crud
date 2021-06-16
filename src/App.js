@@ -2,6 +2,7 @@ import React from 'react';
 import { Grommet, Button } from 'grommet';
 import ProductTable from './components/ProductTable';
 import ProductForm from './components/ProductForm';
+import Modal from './components/Modal';
 import generateMockProducts from './utils/generateMockProducts';
 
 const theme = {
@@ -22,11 +23,16 @@ const App = () => {
   return (
     <Grommet theme={theme}>
       <div>{title}</div>
-      <Button primary label="+ tambah produk" />
       <ProductTable
         list={list}
       />
-      <ProductForm />
+      <Modal
+        trigger={
+          <Button primary label="+ tambah produk" />
+        }
+      >
+        <ProductForm />
+      </Modal>
     </Grommet>
   );
 };

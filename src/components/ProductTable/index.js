@@ -8,6 +8,7 @@ const ProductTable = ({ list }) => {
 
   return (
     <DataTable
+      primaryKey="name"
       columns={[
         {
           header: 'Gambar',
@@ -15,7 +16,6 @@ const ProductTable = ({ list }) => {
         {
           property: 'name',
           header: 'Nama',
-          primary: true,
         },
         {
           property: 'stock',

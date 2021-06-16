@@ -14,6 +14,7 @@ const ProductForm = ({ initialValue }) => {
   };
 
   const handleFileChange = (event) => {
+    console.log('file change');
     const fileList = event.target.files;
     for (let i = 0; i < fileList.length; i += 1) {
       const file = fileList[i];
@@ -32,7 +33,7 @@ const ProductForm = ({ initialValue }) => {
   };
 
   const isSubmitBtnDisabled = () => {
-    return !isFormValid;
+    return !isFormValid || !!fileError;
   };
 
   const validateIfNegativeNum = (numStr) => {
