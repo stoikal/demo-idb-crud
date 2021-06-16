@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Layer, Box } from 'grommet';
+import noop from '../../utils/noop';
 
-const Modal = ({ trigger, children }) => {
+const Modal = ({ trigger, children, onOpen, onClose, isOpen: isOpenProp }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = (e) => {
     e.preventDefault();
     setIsOpen(false);
+    onClose();
   };
 
-  const toggleOpen = () => {
-    setIsOpen((prevVal) => !prevVal);
+  const handleOpen = () => {
+    onOpen();
+    setIsOpen(true);
   };
 
   const triggerElement = trigger && React.cloneElement(
     trigger,
-    { onClick: toggleOpen },
+    { onClick: handleOpen },
   );
+
+  const shouldShowLayer = (() => {
+    if (isOpenProp !== null) {
+      return isOpenProp;
+    }
+    return isOpen;
+  })();
 
   return (
     <>
       {triggerElement}
-      {isOpen && (
+      {shouldShowLayer && (
         <Layer
           position="center"
           onClickOutside={handleClose}
@@ -46,11 +56,17 @@ const Modal = ({ trigger, children }) => {
 Modal.defaultProps = {
   trigger: null,
   children: null,
+  isOpen: null,
+  onOpen: noop,
+  onClose: noop,
 };
 
 Modal.propTypes = {
   trigger: PropTypes.node,
   children: PropTypes.node,
+  isOpen: PropTypes.bool,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grommet, Button } from 'grommet';
+import { Grommet, Button, Box } from 'grommet';
 import ProductTable from './components/ProductTable';
 import ProductForm from './components/ProductForm';
 import Modal from './components/Modal';
@@ -18,21 +18,20 @@ const theme = {
 const list = generateMockProducts(10);
 
 const App = () => {
-  const title = 'hello world';
-
   return (
     <Grommet theme={theme}>
-      <div>{title}</div>
+      <Box align="center">
+        <Modal
+          trigger={
+            <Button primary label="+ tambah produk" />
+          }
+        >
+          <ProductForm />
+        </Modal>
+      </Box>
       <ProductTable
         list={list}
       />
-      <Modal
-        trigger={
-          <Button primary label="+ tambah produk" />
-        }
-      >
-        <ProductForm />
-      </Modal>
     </Grommet>
   );
 };
