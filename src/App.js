@@ -20,32 +20,54 @@ const theme = {
 
 const App = () => {
   const [list, setList] = useState([]);
+  const [itemCount, setItemCount] = useState(null);
+  const [page, setPage] = useState(1);
+
+  const LIMIT = 10;
 
   const getProductList = async () => {
-    const res = await ProductList.list();
+    const offset = LIMIT * page - LIMIT;
+    const res = await ProductList.get({ limit: LIMIT, offset });
     setList(res);
+  };
+
+  const getItemCount = async () => {
+    const count = await ProductList.count();
+    setItemCount(count);
   };
 
   useEffect(() => {
     getProductList();
-  }, []);
+    getItemCount();
+  }, [page]);
 
   const generateProducts = async () => {
     await ProductList.putMany(generateMockProducts(10));
     getProductList();
+    getItemCount();
   };
 
   const handleSubmit = async (product) => {
     await ProductList.put(product);
 
     getProductList();
+    getItemCount();
   };
 
   const handleDelete = async (product) => {
     const { name } = product;
     await ProductList.delete(name);
 
-    getProductList();
+    if (list.length < 2) {
+      setPage(page - 1);
+    } else {
+      getItemCount();
+      getProductList();
+    }
+  };
+
+  const handlePageChange = ({ page: pageNum }) => {
+    setPage(pageNum);
   };
 
   return (
@@ -66,7 +88,14 @@ const App = () => {
           onDeleteProduct={handleDelete}
         />
         <Box align="center" margin="medium">
-          <Pagination numberItems={237} />
+          {!!itemCount && (
+            <Pagination
+              numberItems={itemCount}
+              step={LIMIT}
+              onChange={handlePageChange}
+              page={page}
+            />
+          )}
         </Box>
       </Main>
     </Grommet>

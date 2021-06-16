@@ -50,6 +50,28 @@ const ProductListIdb = {
       tx.done,
     ]);
   },
+
+  async count() {
+    return (await dbPromise).count(OBJECT_STORE_NAME);
+  },
+
+  async get({ limit = 10, offset = 0 }) {
+    const tx = (await dbPromise).transaction(OBJECT_STORE_NAME);
+    const list = [];
+    let cursor = await tx.store.openCursor();
+
+    if (offset) {
+      cursor = await cursor.advance(offset);
+    }
+
+    while (cursor && list.length < limit) {
+      list.push(cursor.value);
+      // eslint-disable-next-line no-await-in-loop
+      cursor = await cursor.continue();
+    }
+
+    return list;
+  },
 };
 
 export default ProductListIdb;
