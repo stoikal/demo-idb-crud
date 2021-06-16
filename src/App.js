@@ -4,7 +4,7 @@ import { Grommet, Button, Main, Box } from 'grommet';
 import ProductList from './data/product-list-idb';
 import ProductTable from './components/ProductTable';
 import ProductFormModal from './components/ProductFormModal';
-// import generateMockProducts from './utils/generateMockProducts';
+import generateMockProducts from './utils/generateMockProducts';
 
 const theme = {
   global: {
@@ -30,6 +30,11 @@ const App = () => {
     getProductList();
   }, []);
 
+  const generateProducts = async () => {
+    await ProductList.putMany(generateMockProducts(10));
+    getProductList();
+  };
+
   const handleSubmit = async (product) => {
     await ProductList.put(product);
 
@@ -46,7 +51,8 @@ const App = () => {
   return (
     <Grommet theme={theme}>
       <Main pad="large" width={{ min: '600px', max: '1000px' }} margin={{ horizontal: 'auto' }}>
-        <Box align="end" margin="small">
+        <Box justify="between" margin="small" direction="row">
+          <Button onClick={generateProducts} secondary label="Generate 10 products" />
           <ProductFormModal
             trigger={
               <Button primary label="+ tambah produk" />

@@ -48,6 +48,8 @@ const ProductForm = ({ initialValue, onSubmit }) => {
     setIsFormValid(valid);
   };
 
+  const isNameInputDisabled = !!initialValue.name;
+
   return (
     <Form
       value={value}
@@ -56,8 +58,8 @@ const ProductForm = ({ initialValue, onSubmit }) => {
       onChange={handleChange}
       onValidate={onFormValidate}
     >
-      <FormField label="Nama" name="name" required>
-        <TextInput name="name" />
+      <FormField label="Nama" name="name" required disabled={isNameInputDisabled}>
+        <TextInput name="name" disabled={isNameInputDisabled} />
       </FormField>
       <FormField
         validate={[

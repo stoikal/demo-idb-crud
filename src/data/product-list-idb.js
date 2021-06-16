@@ -40,6 +40,17 @@ const ProductListIdb = {
 
     return (await dbPromise).delete(OBJECT_STORE_NAME, name);
   },
+
+  async putMany(products) {
+    console.log(products);
+    const tx = (await dbPromise).transaction(OBJECT_STORE_NAME, 'readwrite');
+    await Promise.all([
+      ...products.map((product) => {
+        return tx.store.put(product);
+      }),
+      tx.done,
+    ]);
+  },
 };
 
 export default ProductListIdb;
