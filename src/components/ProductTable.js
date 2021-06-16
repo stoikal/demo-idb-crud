@@ -2,38 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DataTable, Box, Button } from 'grommet';
 import { FormEdit, FormTrash } from 'grommet-icons';
-import Modal from './Modal';
-import ProductForm from './ProductForm';
+import ProductFormModal from './ProductFormModal';
 import Confirm from './Confirm';
 import formatCurrency from '../utils/formatCurrency';
+import noop from '../utils/noop';
 
-const ProductTable = ({ list }) => {
+const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
   const renderPrice = (name) => (data) => formatCurrency(data[name]);
 
   const renderEditBtn = () => (
-    <Box round="full" overflow="hidden" background="status-unknown">
+    <Box round="full" overflow="hidden" background="status-unknown" margin="xxsmall">
       <Button icon={<FormEdit />} hoverIndicator />
     </Box>
   );
 
   const renderDeleteBtn = () => (
-    <Box round="full" overflow="hidden" background="status-critical">
+    <Box round="full" overflow="hidden" background="status-critical" margin="xxsmall">
       <Button icon={<FormTrash />} hoverIndicator />
     </Box>
   );
 
-  const renderActions = (data) => {
+  const createConfirmHandler = (product) => () => {
+    onDeleteProduct(product);
+  };
+
+  const renderActions = (product) => {
     return (
-      <Box align="center">
-        <Modal
+      <div style={{ display: 'flex' }}>
+        <ProductFormModal
+          initialValue={product}
           trigger={renderEditBtn()}
-        >
-          <ProductForm
-            initialValue={data}
-          />
-        </Modal>
-        <Confirm trigger={renderDeleteBtn()} />
-      </Box>
+          onSubmit={onSubmitProduct}
+        />
+        <Confirm trigger={renderDeleteBtn()} onOk={createConfirmHandler(product)} />
+      </div>
     );
   };
 
@@ -54,6 +56,7 @@ const ProductTable = ({ list }) => {
         },
         {
           header: 'Harga Beli',
+          align: 'end',
           render: renderPrice('costPrice'),
         },
         {
@@ -63,12 +66,18 @@ const ProductTable = ({ list }) => {
         },
         {
           header: 'Aksi',
+          align: 'center',
           render: renderActions,
         },
       ]}
       data={list}
     />
   );
+};
+
+ProductTable.defaultProps = {
+  onDeleteProduct: noop,
+  onSubmitProduct: noop,
 };
 
 ProductTable.propTypes = {
@@ -79,6 +88,8 @@ ProductTable.propTypes = {
     costPrice: PropTypes.number,
     sellingPrice: PropTypes.number,
   })).isRequired,
+  onDeleteProduct: PropTypes.func,
+  onSubmitProduct: PropTypes.func,
 };
 
 export default ProductTable;

@@ -4,7 +4,7 @@ import { Box, Heading, Text, Button } from 'grommet';
 import Modal from './Modal';
 import noop from '../utils/noop';
 
-const Confirm = ({ trigger, onOk }) => {
+const Confirm = ({ trigger, onOk: onOkProp }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCancel = () => {
@@ -16,6 +16,11 @@ const Confirm = ({ trigger, onOk }) => {
   };
 
   const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOk = async () => {
+    await onOkProp();
     setIsOpen(false);
   };
 
@@ -34,7 +39,7 @@ const Confirm = ({ trigger, onOk }) => {
           justify="end"
           pad={{ top: 'medium', bottom: 'small' }}
         >
-          <Button label="Ya, hapus" onClick={onOk} color="dark-3" />
+          <Button label="Ya, hapus" onClick={handleOk} color="dark-3" />
           <Button
             label={(
               <Text color="white">

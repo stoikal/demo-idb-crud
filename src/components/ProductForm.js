@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Form, FormField, TextInput, Button, FileInput } from 'grommet';
+import noop from '../utils/noop';
 
-const ProductForm = ({ initialValue }) => {
+const ProductForm = ({ initialValue, onSubmit }) => {
   const [value, setValue] = useState(initialValue);
   const [fileError, setFileError] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -28,7 +29,10 @@ const ProductForm = ({ initialValue }) => {
   };
 
   const handleSubmit = (event) => {
-    console.log('hello', event.value);
+    const submitValue = {
+      ...event.value,
+    };
+    onSubmit(submitValue);
   };
 
   const isSubmitBtnDisabled = () => {
@@ -112,6 +116,7 @@ ProductForm.defaultProps = {
     costPrice: '',
     sellingPrice: '',
   },
+  onSubmit: noop,
 };
 
 ProductForm.propTypes = {
@@ -130,6 +135,7 @@ ProductForm.propTypes = {
       PropTypes.number,
     ]),
   }),
+  onSubmit: PropTypes.func,
 };
 
 export default ProductForm;
