@@ -16,8 +16,6 @@ const theme = {
   },
 };
 
-// const list = generateMockProducts(10);
-
 const App = () => {
   const [list, setList] = useState([]);
   const [itemCount, setItemCount] = useState(null);
@@ -36,22 +34,23 @@ const App = () => {
     setItemCount(count);
   };
 
-  useEffect(() => {
-    getProductList();
-    getItemCount();
-  }, [page]);
-
-  const generateProducts = async () => {
-    await ProductList.putMany(generateMockProducts(10));
+  const updatePage = () => {
     getProductList();
     getItemCount();
   };
 
+  useEffect(() => {
+    updatePage();
+  }, [page]);
+
+  const generateProducts = async () => {
+    await ProductList.putMany(generateMockProducts(10));
+    updatePage();
+  };
+
   const handleSubmit = async (product) => {
     await ProductList.put(product);
-
-    getProductList();
-    getItemCount();
+    updatePage();
   };
 
   const handleDelete = async (product) => {
@@ -59,10 +58,9 @@ const App = () => {
     await ProductList.delete(name);
 
     if (list.length < 2) {
-      setPage(page - 1);
+      setPage(page - 1); // page change is being listened by useEffect
     } else {
-      getItemCount();
-      getProductList();
+      updatePage();
     }
   };
 
