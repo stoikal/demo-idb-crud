@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DataTable, Box, Button } from 'grommet';
 import { FormEdit, FormTrash } from 'grommet-icons';
-import Modal from '../Modal';
-import ProductForm from '../ProductForm';
-import Confirm from '../Confirm';
-import formatCurrency from '../../utils/formatCurrency';
+import Modal from './Modal';
+import ProductForm from './ProductForm';
+import Confirm from './Confirm';
+import formatCurrency from '../utils/formatCurrency';
 
 const ProductTable = ({ list }) => {
   const renderPrice = (name) => (data) => formatCurrency(data[name]);
