@@ -28,14 +28,14 @@ const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
 
   const renderActions = (product) => {
     return (
-      <div style={{ display: 'flex' }}>
+      <Box direction="row" justify="center">
         <ProductFormModal
           initialValue={product}
           trigger={renderEditBtn()}
           onSubmit={onSubmitProduct}
         />
         <Confirm trigger={renderDeleteBtn()} onOk={createConfirmHandler(product)} />
-      </div>
+      </Box>
     );
   };
 
@@ -59,14 +59,17 @@ const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
         {
           header: 'Gambar',
           render: renderImage,
+          align: 'center',
         },
         {
           property: 'name',
           header: 'Nama',
+          primary: true,
         },
         {
           property: 'stock',
           header: 'Stok',
+          align: 'center',
         },
         {
           header: 'Harga Beli',
