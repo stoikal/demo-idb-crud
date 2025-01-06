@@ -1,7 +1,7 @@
 {
   "name": "demo-idb-crud",
   "version": "0.0.1",
-  "description": "",
+  "description": "nutech-test",
   "main": "src/scripts/index.js",
   "private": true,
   "scripts": {
