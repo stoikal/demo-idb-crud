@@ -109,7 +109,7 @@ const ProductForm = ({ initialValue, onSubmit }) => {
       </FormField>
       <Button
         type="submit"
-        label="Submit"
+        label="Simpan"
         primary
         disabled={isSubmitBtnDisabled()}
       />

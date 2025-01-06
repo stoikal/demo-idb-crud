@@ -39,16 +39,16 @@ const Confirm = ({ trigger, onOk: onOkProp }) => {
           justify="end"
           pad={{ top: 'medium', bottom: 'small' }}
         >
-          <Button label="Ya, hapus" onClick={handleOk} color="dark-3" />
           <Button
-            label={(
-              <Text color="white">
-                <strong>Batal</strong>
-              </Text>
-            )}
-            onClick={handleCancel}
+            label="Ya, hapus"
+            onClick={handleOk}
             primary
             color="status-critical"
+          />
+          <Button
+            label="Batal"
+            onClick={handleCancel}
+            color="dark-3"
           />
         </Box>
       </Box>
