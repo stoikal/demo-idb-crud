@@ -1,3 +1,5 @@
+// TODO enable eslint rule
+/* eslint-disable import/no-import-module-exports */
 import './styles/normalize.css';
 
 import React from 'react';
