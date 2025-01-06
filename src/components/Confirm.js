@@ -4,7 +4,7 @@ import { Box, Heading, Text, Button } from 'grommet';
 import Modal from './Modal';
 import noop from '../utils/noop';
 
-const Confirm = ({ trigger, onOk: onOkProp }) => {
+function Confirm({ trigger, onOk: onOkProp }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCancel = () => {
@@ -54,7 +54,7 @@ const Confirm = ({ trigger, onOk: onOkProp }) => {
       </Box>
     </Modal>
   );
-};
+}
 
 Confirm.defaultProps = {
   onOk: noop,

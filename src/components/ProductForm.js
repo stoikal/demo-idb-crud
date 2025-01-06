@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Form, FormField, TextInput, Button, FileInput } from 'grommet';
 import noop from '../utils/noop';
 
-const ProductForm = ({ initialValue, onSubmit }) => {
+function ProductForm({ initialValue, onSubmit }) {
   const [value, setValue] = useState(initialValue);
   const [imageFile, setImageFile] = useState(null);
   const [fileError, setFileError] = useState(null);
@@ -115,7 +115,7 @@ const ProductForm = ({ initialValue, onSubmit }) => {
       />
     </Form>
   );
-};
+}
 
 ProductForm.defaultProps = {
   initialValue: {

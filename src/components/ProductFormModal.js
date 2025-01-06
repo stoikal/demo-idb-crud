@@ -4,7 +4,7 @@ import ProductForm from './ProductForm';
 import Modal from './Modal';
 import noop from '../utils/noop';
 
-const ProductFormModal = ({ trigger, onSubmit: onSubmitProp, initialValue }) => {
+function ProductFormModal({ trigger, onSubmit: onSubmitProp, initialValue }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = async (value) => {
@@ -33,7 +33,7 @@ const ProductFormModal = ({ trigger, onSubmit: onSubmitProp, initialValue }) => 
       />
     </Modal>
   );
-};
+}
 
 ProductFormModal.defaultProps = {
   onSubmit: noop,

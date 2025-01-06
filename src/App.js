@@ -16,7 +16,7 @@ const theme = {
   },
 };
 
-const App = () => {
+function App() {
   const [list, setList] = useState([]);
   const [itemCount, setItemCount] = useState(null);
   const [page, setPage] = useState(1);
@@ -98,6 +98,6 @@ const App = () => {
       </Main>
     </Grommet>
   );
-};
+}
 
 export default App;

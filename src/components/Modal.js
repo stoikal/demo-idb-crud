@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layer, Box } from 'grommet';
 import noop from '../utils/noop';
 
-const Modal = ({ trigger, children, onOpen, onClose, isOpen: isOpenProp }) => {
+function Modal({ trigger, children, onOpen, onClose, isOpen: isOpenProp }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = (e) => {
@@ -51,7 +51,7 @@ const Modal = ({ trigger, children, onOpen, onClose, isOpen: isOpenProp }) => {
       )}
     </>
   );
-};
+}
 
 Modal.defaultProps = {
   trigger: null,

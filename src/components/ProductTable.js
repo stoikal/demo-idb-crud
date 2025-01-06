@@ -7,7 +7,7 @@ import Confirm from './Confirm';
 import formatCurrency from '../utils/formatCurrency';
 import noop from '../utils/noop';
 
-const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
+function ProductTable({ list, onSubmitProduct, onDeleteProduct }) {
   const renderPrice = (name) => (data) => formatCurrency(data[name]);
 
   const renderEditBtn = () => (
@@ -90,7 +90,7 @@ const ProductTable = ({ list, onSubmitProduct, onDeleteProduct }) => {
       data={list}
     />
   );
-};
+}
 
 ProductTable.defaultProps = {
   onDeleteProduct: noop,
